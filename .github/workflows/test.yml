@@ -22,6 +22,9 @@ jobs:
 
     second_job:
         needs: first_job
+        concurrency:
+          group: second_job
+          cancel-in-progress: false
         runs-on: ubuntu-latest
         steps:
         - name: Run a Python script
