@@ -1,0 +1,30 @@
+name: My First GitHub Action Workflow
+on: 
+  workflow_dispatch:
+
+jobs:
+    first_job:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+        - name: Welcome message
+          run: echo "My first GitHub Action workflow is running!"
+        
+        - name: Read a file
+          run: |
+            if [ -f "README.md" ]; then
+              echo "Contents of README.md:"
+              cat README.md
+            else
+              echo "README.md does not exist."
+            fi
+
+    second_job:
+        needs: first_job
+        runs-on: ubuntu-latest
+        steps:
+        - name: Run a Python script
+          run: |
+            echo "Running a Python script..."
+            python -c "print('Hello from Python!')"
