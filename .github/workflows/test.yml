@@ -1,5 +1,6 @@
 name: My First GitHub Action Workflow
-on: workflow_dispatch
+on: [workflow_dispatch, push]
+
 
 jobs:
     first_job:
@@ -9,7 +10,9 @@ jobs:
           uses: actions/checkout@v3
         - name: Welcome message
           run: echo "My first GitHub Action workflow is running!"
-        
+        - if: ${{ github.event_name }} == "push"
+          run: |
+            echo " its push event"
         - name: Read a file
           run: |
             if [ -f "README.md" ]; then
